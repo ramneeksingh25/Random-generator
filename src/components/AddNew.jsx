@@ -1,6 +1,7 @@
 import {  addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
-import { db } from "../../../config/firebase";
+import { db } from "../config/firebase";
+import Button from "./Button";
 
 // eslint-disable-next-line react/prop-types
 const AddNew = ({ clickFunc }) => {
@@ -16,6 +17,11 @@ const AddNew = ({ clickFunc }) => {
               clickFunc(false);
           }, 1000);
     }
+	const copyFromClipboard = async()=>{
+		const clip =await navigator.clipboard.readText()
+		console.log(clip);
+		setValue(clip);
+	}
 	return (
 		<div className="absolute top-0 left-0 h-screen w-full flex items-center justify-center">
 			<div
@@ -23,7 +29,7 @@ const AddNew = ({ clickFunc }) => {
 				onClick={() => {
 					clickFunc(false);
 				}}></div>
-			<div className="absolute h-[40vh] w-[40vh] bg-zinc-800 z-20 border rounded-xl p-9">
+			<div className="absolute h-[40vh] w-[70vh] bg-zinc-800 z-20 border rounded-xl p-9 flex flex-col items-center justify-center">
 				<div className="relative w-full my-3 py-1 text-blue-400">
 					<input
 						id="quote"
@@ -39,15 +45,9 @@ const AddNew = ({ clickFunc }) => {
 						Enter Quote:
 					</label>
 				</div>
-                <div>
-                    <button className="bg-orange-500 text-white rounded-xl py-2 px-4 hover:bg-orange-600 transition-colors duration-300" onClick={addQuote}>
-                        ADD QUOTE
-                    </button>
-                    <button className="bg-orange-500 text-white rounded-xl py-2 px-4 hover:bg-orange-600 transition-colors duration-300" onClick={async()=>{
-                        const clip =await navigator.clipboard.readText()
-                        console.log(clip);
-                        setValue(clip);
-                    }}>Copy from clipboard</button>
+                <div className="flex items-center justify-around w-full">
+					<Button buttonFunc={addQuote}>ADD QUOTE</Button>
+					<Button buttonFunc={copyFromClipboard}>COPY FROM CLIPBOARD</Button>
                 </div>
                 {messageVisible && <div className="text-green-400">Successfully Added New Quote! </div>}
 			</div>
