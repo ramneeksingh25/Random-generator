@@ -32,7 +32,7 @@ const Home = () => {
 		fetchQuotes();
 	}, []);
 	return (
-		<div className="absolute w-full h-screen  gap-10 flex items-center justify-center">
+		<div className="absolute w-full h-full gap-10 flex items-center justify-center">
 			<div className="flex flex-col space-y-[10vh]">
 				<Quote
 					val={quote}
