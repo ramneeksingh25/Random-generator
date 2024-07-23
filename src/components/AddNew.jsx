@@ -4,7 +4,7 @@ import { db } from "../config/firebase";
 import Button from "./Button";
 
 // eslint-disable-next-line react/prop-types
-const AddNew = ({ clickFunc }) => {
+const AddNew = ({ clickFunc,fetchF }) => {
 	const [value, setValue] = useState("");
     const [messageVisible,setMessageVisible]=useState(false);
     const addQuote = async ()=>{
@@ -13,6 +13,7 @@ const AddNew = ({ clickFunc }) => {
             quote: value
           });
           setMessageVisible(true)
+		  fetchF();
           setTimeout(() => {
               clickFunc(false);
           }, 1000);
